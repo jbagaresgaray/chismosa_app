@@ -1,6 +1,63 @@
 var ctrl = angular.module('todo.controllers', []);
 
-ctrl.controller('AppCtrl', function ($scope, $stateParams,$ionicModal) {
+ctrl.controller('LoginCtrl', function ($scope, $stateParams, $ionicModal, $location, $ionicPopup, LoginFactory) {
+        console.log('LoginCtrl');
+
+        $scope.login = {};
+
+        $scope.doLogin = function () {
+                console.log('Doing login', $scope.login);
+                LoginFactory.query($scope.login)
+                        .success(function (data) {
+                                console.log('data');
+                                console.log(data);
+                                if (data) {
+                                        if (data[0].success == true) {
+                                                console.log(data[0].users[0]);
+                                                $scope.users = data[0].users[0];
+                                                window.localStorage['users'] = JSON.stringify(data[0].users[0]);
+                                                console.log('$location.path(home);');
+                                                $location.path('/app/home');
+                                        } else {
+                                                if (data[0]) {
+                                                        if (data[0].message.mobile_number) {
+                                                                $ionicPopup.alert({
+                                                                        title: 'Error',
+                                                                        template: data[0].message.mobile_number.msg
+                                                                });
+                                                        } else if (data[0].message.password) {
+                                                                $ionicPopup.alert({
+                                                                        title: 'Error',
+                                                                        template: data[0].message.password.msg
+                                                                });
+                                                        }
+
+                                                } else {
+                                                        $ionicPopup.alert({
+                                                                title: 'Error',
+                                                                template: 'No user existed with that account'
+                                                        });
+                                                }
+                                        }
+                                } else {
+                                        $ionicPopup.alert({
+                                                title: 'Error',
+                                                template: 'No user existed with that account'
+                                        });
+                                }
+
+                        })
+                        .error(function (error) {
+                                $ionicPopup.alert({
+                                        title: 'Error',
+                                        template: error[0].message
+                                });
+                                return;
+                        });
+        };
+});
+
+ctrl.controller('AppCtrl', function ($scope, $stateParams, $ionicModal) {
         console.log('AppCtrl');
 
         $ionicModal.fromTemplateUrl('templates/search.html', {
@@ -9,7 +66,7 @@ ctrl.controller('AppCtrl', function ($scope, $stateParams,$ionicModal) {
                 $scope.searchmodal = $ionicModal;
         });
 
-        $scope.openSearch = function(){
+        $scope.openSearch = function () {
                 console.log('openSearch');
                 $scope.searchmodal.show();
         };
@@ -44,7 +101,7 @@ ctrl.controller('AppCtrl', function ($scope, $stateParams,$ionicModal) {
                 $scope.messagedetail.show();
         };
 
-        $scope.closeMessageDetail= function () {
+        $scope.closeMessageDetail = function () {
                 console.log('closeMessageDetail');
                 $scope.messagedetail.hide();
         };
@@ -146,136 +203,157 @@ ctrl.controller('AppCtrl', function ($scope, $stateParams,$ionicModal) {
 ctrl.controller('ProfileCtrl', function ($scope, $ionicPopup) {
         console.log('ProfileCtrl');
 
-        $scope.showName = function() {
+        $scope.showName = function () {
                 $scope.data = {}
-        var myPopup = $ionicPopup.show({
-                template: '<input type="text" ng-model="data.name">',
-                title: 'Set Name',
-                scope: $scope,
-                buttons: [
-                        { text: 'Cancel' },
-                        {
-                                text: '<b>Save</b>',
-                                type: 'button-positive',
-                                onTap: function(e) {
-                                        if (!$scope.data.name) {
-                                                e.preventDefault();
-                                        } else {
-                                                return $scope.data.name;
+                var myPopup = $ionicPopup.show({
+                        template: '<input type="text" ng-model="data.name">',
+                        title: 'Set Name',
+                        scope: $scope,
+                        buttons: [
+                                {
+                                        text: 'Cancel'
+                                },
+                                {
+                                        text: '<b>Save</b>',
+                                        type: 'button-positive',
+                                        onTap: function (e) {
+                                                if (!$scope.data.name) {
+                                                        e.preventDefault();
+                                                } else {
+                                                        return $scope.data.name;
+                                                }
                                         }
-                                }
                         },
-                ]});
+                ]
+                });
 
         };
 
-        $scope.showPicOption = function() {
+        $scope.showPicOption = function () {
                 $scope.data = {}
                 var myPopup = $ionicPopup.show({
                         template: '<div class="list"><a class="item" ng-click="showProfilePic()">Profile Photo</a><a class="item" ng-click="showCoverPic()">Cover Photo</a></div>',
                         title: 'Set Profile/Cover Photo',
                         scope: $scope,
                         buttons: [
-                                { text: 'Cancel' }
-                        ]});
-
-        };
-
-        $scope.showProfilePic = function() {
-                $scope.data = {}
-        var myPopup = $ionicPopup.show({
-                template: '<div class="list"><a class="item item-icon-left"><i class="icon ion-camera"></i>Camera</a><a class="item item-icon-left"><i class="icon ion-images"></i>Gallery</a><a class="item item-icon-left"><i class="icon ion-close-round"></i>Remove</a></div>',
-                title: 'Set Profile Photo',
-                scope: $scope,
-                buttons: [
-                        { text: 'Cancel' }
-                ]});
-
-        };
-
-        $scope.showCoverPic = function() {
-                $scope.data = {}
-        var myPopup = $ionicPopup.show({
-                template: '<div class="list"><a class="item item-icon-left"><i class="icon ion-camera"></i>Camera</a><a class="item item-icon-left"><i class="icon ion-images"></i>Gallery</a><a class="item item-icon-left"><i class="icon ion-close-round"></i>Remove</a></div>',
-                title: 'Set Cover Photo',
-                scope: $scope,
-                buttons: [
-                        { text: 'Cancel' }
-                ]});
-
-        };
-
-        $scope.showStatus = function() {
-                $scope.data = {}
-        var myPopup = $ionicPopup.show({
-                template: '<textarea id="message" ng-model="data.status" style="overflow:hidden;height:80px;" ng-trim="false" maxlength="450" row="4" column="10"></textarea><span>{{200 - data.status.length}}</span>',
-                title: 'Set Status',
-                scope: $scope,
-                buttons: [
-                        { text: 'Cancel' },
-                        {
-                                text: '<b>Delete</b>',
-                                type: 'button-assertive',
-
-                        },
-                        {
-                                text: '<b>Save</b>',
-                                type: 'button-positive',
-                                onTap: function(e) {
-                                        if (!$scope.data.status) {
-                                                e.preventDefault();
-                                        } else {
-                                                return $scope.data.status;
-                                        }
+                                {
+                                        text: 'Cancel'
                                 }
-                        },
-                ]});
+                        ]
+                });
 
         };
 
-        $scope.showMobile = function() {
+        $scope.showProfilePic = function () {
                 $scope.data = {}
-        var myPopup = $ionicPopup.show({
-                template: '<input type="text" ng-model="data.number">',
-                title: 'Edit Mobile Number',
-                scope: $scope,
-                buttons: [
-                        { text: 'Cancel' },
-                        {
-                                text: '<b>Save</b>',
-                                type: 'button-positive',
-                                onTap: function(e) {
-                                        if (!$scope.data.number) {
-                                                e.preventDefault();
-                                        } else {
-                                                return $scope.data.number;
-                                        }
+                var myPopup = $ionicPopup.show({
+                        template: '<div class="list"><a class="item item-icon-left"><i class="icon ion-camera"></i>Camera</a><a class="item item-icon-left"><i class="icon ion-images"></i>Gallery</a><a class="item item-icon-left"><i class="icon ion-close-round"></i>Remove</a></div>',
+                        title: 'Set Profile Photo',
+                        scope: $scope,
+                        buttons: [
+                                {
+                                        text: 'Cancel'
                                 }
-                        },
-                ]});
+                ]
+                });
 
         };
 
-        $scope.showEmail = function() {
+        $scope.showCoverPic = function () {
                 $scope.data = {}
-        var myPopup = $ionicPopup.show({
-                template: '<input type="email" ng-model="data.email">',
-                title: 'Edit Email Address',
-                scope: $scope,
-                buttons: [
-                        { text: 'Cancel' },
-                        {
-                                text: '<b>Save</b>',
-                                type: 'button-positive',
-                                onTap: function(e) {
-                                        if (!$scope.data.email) {
-                                                e.preventDefault();
-                                        } else {
-                                                return $scope.data.email;
-                                        }
+                var myPopup = $ionicPopup.show({
+                        template: '<div class="list"><a class="item item-icon-left"><i class="icon ion-camera"></i>Camera</a><a class="item item-icon-left"><i class="icon ion-images"></i>Gallery</a><a class="item item-icon-left"><i class="icon ion-close-round"></i>Remove</a></div>',
+                        title: 'Set Cover Photo',
+                        scope: $scope,
+                        buttons: [
+                                {
+                                        text: 'Cancel'
                                 }
+                ]
+                });
+
+        };
+
+        $scope.showStatus = function () {
+                $scope.data = {}
+                var myPopup = $ionicPopup.show({
+                        template: '<textarea id="message" ng-model="data.status" style="overflow:hidden;height:80px;" ng-trim="false" maxlength="450" row="4" column="10"></textarea><span>{{200 - data.status.length}}</span>',
+                        title: 'Set Status',
+                        scope: $scope,
+                        buttons: [
+                                {
+                                        text: 'Cancel'
+                                },
+                                {
+                                        text: '<b>Delete</b>',
+                                        type: 'button-assertive',
+
                         },
-                ]});
+                                {
+                                        text: '<b>Save</b>',
+                                        type: 'button-positive',
+                                        onTap: function (e) {
+                                                if (!$scope.data.status) {
+                                                        e.preventDefault();
+                                                } else {
+                                                        return $scope.data.status;
+                                                }
+                                        }
+                        },
+                ]
+                });
+
+        };
+
+        $scope.showMobile = function () {
+                $scope.data = {}
+                var myPopup = $ionicPopup.show({
+                        template: '<input type="text" ng-model="data.number">',
+                        title: 'Edit Mobile Number',
+                        scope: $scope,
+                        buttons: [
+                                {
+                                        text: 'Cancel'
+                                },
+                                {
+                                        text: '<b>Save</b>',
+                                        type: 'button-positive',
+                                        onTap: function (e) {
+                                                if (!$scope.data.number) {
+                                                        e.preventDefault();
+                                                } else {
+                                                        return $scope.data.number;
+                                                }
+                                        }
+                        },
+                ]
+                });
+
+        };
+
+        $scope.showEmail = function () {
+                $scope.data = {}
+                var myPopup = $ionicPopup.show({
+                        template: '<input type="email" ng-model="data.email">',
+                        title: 'Edit Email Address',
+                        scope: $scope,
+                        buttons: [
+                                {
+                                        text: 'Cancel'
+                                },
+                                {
+                                        text: '<b>Save</b>',
+                                        type: 'button-positive',
+                                        onTap: function (e) {
+                                                if (!$scope.data.email) {
+                                                        e.preventDefault();
+                                                } else {
+                                                        return $scope.data.email;
+                                                }
+                                        }
+                        },
+                ]
+                });
 
         };
 });
@@ -338,7 +416,7 @@ ctrl.controller('MsgCtrl', function ($scope, $ionicModal) {
                 $scope.messagedetail.show();
         };
 
-        $scope.closeMessageDetail= function () {
+        $scope.closeMessageDetail = function () {
                 console.log('closeMessageDetail');
                 $scope.messagedetail.hide();
         };
@@ -506,7 +584,7 @@ ctrl.controller('MsgCtrl', function ($scope, $ionicModal) {
 });
 
 
-ctrl.controller('ContactsCtrl', function ($scope, $ionicModal) {
+ctrl.controller('ContactsCtrl', function ($scope, $ionicModal, $ionicLoading, UsersFactory) {
 
         console.log('ContactsCtrl');
 
@@ -585,7 +663,7 @@ ctrl.controller('ContactsCtrl', function ($scope, $ionicModal) {
                 $scope.messagedetail.show();
         };
 
-        $scope.closeMessageDetail= function () {
+        $scope.closeMessageDetail = function () {
                 console.log('closeMessageDetail');
                 $scope.messagedetail.hide();
         };
@@ -611,7 +689,7 @@ ctrl.controller('ContactsCtrl', function ($scope, $ionicModal) {
         }).then(function ($ionicModal) {
                 $scope.searchmodal = $ionicModal;
         });
-        $scope.openSearch = function(){
+        $scope.openSearch = function () {
                 console.log('openSearch');
                 $scope.searchmodal.show();
         };
@@ -632,32 +710,24 @@ ctrl.controller('ContactsCtrl', function ($scope, $ionicModal) {
         });
 
 
+        function getContacts() {
+                $ionicLoading.show({
+                        template: 'Loading...'
+                });
+                UsersFactory.query()
+                        .success(function (data) {
+                                console.log(data);
+                                $scope.contacts = data;
+                                console.log($scope.contacts);
 
-
-        $scope.contacts = [
-                {
-                        id: 1,
-                        name: 'John Doe',
-                        number: '+639161234567'
-                },
-                {
-                        id: 2,
-                        name: 'John Doe',
-                        number: '+639161234567'
-                },
-                {
-                        id: 3,
-                        name: 'John Doe',
-                        number: '+639161234567'
-                },
-                {
-                        id: 4,
-                        name: 'John Doe',
-                        number: '+639161234567'
-                }
-        ];
-        console.log($scope.contacts);
-
+                                $ionicLoading.hide();
+                        })
+                        .error(function (error) {
+                                $ionicLoading.hide();
+                                console.log(error);
+                                $scope.status = 'Unable to load customer data: ' + error.message;
+                        });
+        }
 
 
         var messageOptions = [
@@ -692,4 +762,6 @@ ctrl.controller('ContactsCtrl', function ($scope, $ionicModal) {
 
         var messageIter = 0;
         $scope.messagesdetails = messageOptions.slice(0, messageOptions.length);
+
+        getContacts();
 });

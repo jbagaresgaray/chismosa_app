@@ -5,7 +5,7 @@
 .tab-item.tab-item-active,
 .tab-item.active,
 .tab-item.activated {
-	/*  border-bottom: 5px solid #145fd7 !important;*/
+	border-bottom: 5px solid #e67e22 !important;
 }
 .tabs-icon-top > .tabs .tab-item,
 .tabs-icon-top.tabs .tab-item,

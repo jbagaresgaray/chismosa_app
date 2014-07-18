@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 
 
-angular.module('todo', ['ionic', 'todo.controllers'])
+angular.module('todo', ['ionic', 'todo.controllers','todo.services'])
 
 //angular.module('todo', ['ionic'])
 
@@ -24,6 +24,12 @@ angular.module('todo', ['ionic', 'todo.controllers'])
 
 .config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider
+
+    .state('login', {
+      url: "/login",
+      templateUrl: "templates/login.html",
+      controller: 'LoginCtrl'
+    })
 
     .state('app', {
       url: "/app",
@@ -83,5 +89,5 @@ angular.module('todo', ['ionic', 'todo.controllers'])
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/home');
+  $urlRouterProvider.otherwise('/login');
 });
