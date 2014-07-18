@@ -1,1 +1,10 @@
 node_modules/
+/plugins/
+/platforms/android/
+/merges/android/
+/plugins/org.apache.cordova.camera/
+/plugins/org.apache.cordova.console/
+/plugins/org.apache.cordova.contacts/
+/plugins/org.apache.cordova.device/
+/plugins/org.apache.cordova.file/
+/plugins/org.apache.cordova.media-capture/

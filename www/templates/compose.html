@@ -1,0 +1,36 @@
+<div class="modal">
+  <ion-header-bar class="bar-dark">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeCompose()"><i class="icon ion-ios7-arrow-back"></i> Compose Message</button>
+    </div>
+    <h1 class="title"></h1>
+  </ion-header-bar>
+  <ion-header-bar class="bar bar-subheader item-input-inset">
+    <label class="item-input-wrapper">
+        <span class="input-label">To</span>
+        <input id="searchKey" type="search" placeholder="" ng-model="searchKey" ng-change="search()" autocorrect="off" >
+    </label>
+  </ion-header-bar>
+
+  <ion-content class="has-header has-subheader">
+    <ion-list>
+      <ion-item ng-repeat="task in contacts" type="item-text-wrap">
+        <h3>{{task.name}}</h3>
+        <p>{{task.number}}</p>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+
+  <ion-footer-bar class="bar bar-footer bar-dark">
+      <button class="button button-clear" ng-click="closeCompose()">
+        <i class="icon ion-ios7-close-empty"></i>
+        Cancel
+      </button>
+      <div class="title"></div>
+      <button class="button button-clear">
+       <i class="icon ion-ios7-checkmark-empty"></i>
+        Add(0)
+      </button>
+    </ion-footer-bar>
+</div>

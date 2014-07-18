@@ -1,0 +1,84 @@
+/* Empty. Add your own CSS if you like */
+
+/*Android style Tab*/
+
+.tab-item.tab-item-active,
+.tab-item.active,
+.tab-item.activated {
+	/*  border-bottom: 5px solid #145fd7 !important;*/
+}
+.tabs-icon-top > .tabs .tab-item,
+.tabs-icon-top.tabs .tab-item,
+.tabs-icon-bottom > .tabs .tab-item,
+.tabs-icon-bottom.tabs .tab-item {
+	line-height: 12px !important;
+	height: 40px !important;
+	margin-top: 5px !important;
+}
+/*End Android style Tab*/
+
+.modal {
+	top: 0 !important;
+	bottom: 0 !important;
+	left: 0 !important;
+	right: 0 !important;
+	width: 100% !important;
+}
+.details img {
+	float: left;
+	margin-right: 12px;
+}
+.messages {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+.messages li {
+	display: block;
+	float: left;
+	clear: both;
+	max-width: 65%;
+	margin: 0 0 1rem 0;
+	padding: 0;
+}
+.messages li:nth-child(even) {
+	float: right;
+}
+.messages li:nth-child(even) img {
+	float: right;
+}
+.messages p {
+	border-radius: .75rem;
+	background: #e67e22;
+	color: #fff;
+	padding: .6875rem;
+	margin: 0;
+	font-size: .875rem;
+}
+
+.messages li:nth-child(even) p {
+	background: #e6e5eb;
+	color: #383641;
+}
+.messages img {
+	display: block;
+	max-width: 65%;
+	border-radius: .75rem;
+}
+.coverphoto {
+	background: url('../img/back.jpg') no-repeat;
+	background-size: cover;
+}
+
+.large-input{
+	height:60px;
+}
+
+/*
+.tabs-dark > .tabs,
+.tabs.tabs-dark {
+	border-color: #111 !important;
+	background-color: #444 !important;
+	background-image: linear-gradient(0deg, #111, #111 50%, transparent 50%) !important;
+	color: #fff !important;
+}*/

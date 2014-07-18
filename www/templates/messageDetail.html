@@ -1,0 +1,33 @@
+<div class="modal">
+  <ion-header-bar class="bar-dark">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeMessageDetail()"><i class="icon ion-ios7-arrow-back"></i> Philip</button>
+    </div>
+    <h1 class="title"></h1>
+    <div class="buttons">
+      <button class="button button-icon icon ion-person" ng-click="profile()"></button>
+    </div>
+  </ion-header-bar>
+
+
+
+  <ion-content class="has-header padding" start-y="120" scroll="false">
+    <ol class="messages">
+      <li ng-repeat="message in messagesdetails" ng-bind-html="message.message"></li>
+    </ol>
+  </ion-content>
+
+
+  <ion-footer-bar class="bar item-input-inset large-input">
+    <div class="row">
+      <div class="col col-75">
+        <textarea id="message" type="text" placeholder="Text message" ng-model="message" style="overflow:hidden;height:60px;" ng-trim="false" maxlength="450"></textarea>
+      </div>
+      <div class="col">
+        <span>{{450 - message.length}} / 450 </span>
+        <button class="button button-clear icon ion-android-send" ng-click="clearSearch()"></button>
+      </div>
+    </div>
+  </ion-footer-bar>
+
+</div>
