@@ -1,0 +1,26 @@
+<ion-view title="chismosa">
+
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons side="right">
+    <button class="button button-icon icon ion-search" ng-click="openSearch()"></button>
+    <button class="button button-icon icon ion-plus-round" ng-click="openCreateContact()"></button>
+  </ion-nav-buttons>
+
+
+  <ion-content class="has-header">
+    <ion-list>
+      <ion-item ng-repeat="contact in contacts" type="item-text-wrap" ng-click="openProfile()">
+        <div class="details item-icon-right">
+          <img class="rounded" src="img/photo.png" width="50" height="50" />
+          <h3>{{contact.name}}</h3>
+          <p>{{contact.number}}</p>
+          <a class="button button-icon icon ion-chatbox"></a>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+
+</ion-view>

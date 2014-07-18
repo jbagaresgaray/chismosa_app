@@ -1,0 +1,41 @@
+<div class="modal">
+  <ion-header-bar class="bar-dark">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeCreateContact()"><i class="icon ion-ios7-arrow-back"></i>Contact</button>
+    </div>
+    <h1 class="title"></h1>
+    <div class="buttons">
+      <button class="button button-icon icon ion-android-checkmark"></button>
+    </div>
+  </ion-header-bar>
+
+  <ion-content class="has-header padding">
+    <form ng-submit="doLogin()">
+      <div class="list">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Name (optional)</span>
+          <input type="text" placeholder="Name">
+        </label>
+        <div class="row">
+          <div class="col col-25">
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Area Code</span>
+              <input type="text" placeholder="Area Code">
+            </label>
+          </div>
+          <div class="col col-75">
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Mobile Number</span>
+              <input type="text" placeholder="Mobile Number">
+            </label>
+          </div>
+        </div>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Email</span>
+          <input type="text" placeholder="account@example.com">
+        </label>
+      </div>
+    </form>
+  </ion-content>
+
+</div>

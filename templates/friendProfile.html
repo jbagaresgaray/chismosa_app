@@ -1,0 +1,34 @@
+<div class="modal">
+  <ion-header-bar class="bar-dark">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeprofile()"><i class="icon ion-ios7-arrow-back"></i> Philip</button>
+    </div>
+    <h1 class="title"></h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeprofile()"><i class="icon ion-ios7-star"></i></button>
+      <button class="button button-clear" ng-click="modifyContact()"><i class="icon ion-edit"></i></button>
+    </div>
+  </ion-header-bar>
+
+  <ion-content class="has-header padding">
+
+    <div class="list card">
+      <a class="item coverphoto">
+        <center><img class="rounded" src="img/photo.png" style="width:100px;height:100px;" width="100" height="100"/></center>
+      </a>
+      <a class="item item-icon-left">
+        <i class="icon ion-chatbox-working"></i>Status
+      </a>
+      <a class="item item-icon-left">
+        <i class="icon ion-ios7-telephone"></i>Mobile Number
+      </a>
+      <a class="item item-icon-left">
+        <i class="icon ion-ios7-email"></i>Email
+      </a>
+    </div>
+    <button class="button button-block button-energized" ng-click="composeMessage()">
+      Send Message
+    </button>
+  </ion-content>
+
+</div>

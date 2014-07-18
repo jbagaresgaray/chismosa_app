@@ -1,0 +1,63 @@
+<ion-side-menus>
+
+  <ion-pane ion-side-menu-content>
+
+    <ion-nav-bar class="bar-dark nav-title-slide-ios7">
+      <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i> Back</ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-tabs class="tabs-icon-top tabs-dark tabs-top slide-left-right-ios7">
+
+      <ion-tab icon="ion-chatboxes" href="#/app/home">
+        <ion-nav-view name="home-tab"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab icon="ion-android-social" href="#/app/contact">
+        <ion-nav-view name="contact-tab"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab icon="ion-android-user-menu"  href="#/app/profile">
+        <ion-nav-view name="profile-tab"></ion-nav-view>
+      </ion-tab>
+
+    </ion-tabs>
+
+    <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+  </ion-pane>
+
+
+  <!-- Left menu -->
+  <ion-side-menu side="left">
+    <div class="bar bar-header bar-dark">
+      <h1 class="title"></h1>
+    </div>
+    <ion-content class="has-header">
+      <ion-list>
+        <ion-item nav-clear menu-close class="coverphoto">
+          <center>
+            <img class="rounded" src="img/photo.png" width="100" height="100" />
+            <h3>Juan Dela Cruz</h3>
+          </center>
+        </ion-item>
+        <ion-item nav-clear menu-close href="#">
+          <i class="icon ion-home"></i>
+          Home
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/profile">
+          <i class="icon ion-android-social-user"></i>
+          Profile
+        </ion-item>
+        <ion-item nav-clear menu-close ng-click="openSearch()">
+          <i class="icon ion-android-search"></i>
+          Search
+        </ion-item>
+        <ion-item nav-clear menu-close href="#">
+          <i class="icon ion-log-out"></i>
+          Logout
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+
+
+</ion-side-menus>
