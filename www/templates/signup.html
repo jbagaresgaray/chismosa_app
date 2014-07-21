@@ -1,0 +1,47 @@
+<ion-view title="Signup">
+  <ion-header-bar class="bar-dark">
+    <div class="buttons">
+      <a class="button button-clear"  href="#/login"><i class="icon ion-ios7-arrow-back"></i>Sign up</a>
+    </div>
+    <h1 class="title"></h1>
+  </ion-header-bar>
+  <ion-content  scroll="false">
+      <div class="list">
+        <div class="row">
+          <div class="col col-25">
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Area Code</span>
+              <input type="text" placeholder="Area Code" ng-model="areacode">
+            </label>
+          </div>
+          <div class="col col-75">
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Mobile Number</span>
+              <input type="text" placeholder="Mobile Number" ng-model="mobile_number">
+            </label>
+          </div>
+        </div>
+        <label class="item">
+          <button class="button button-block button-energized" type="submit">Next</button>
+        </label>
+        <label class="item">
+          <span class="input-label">Sign in via:</span>
+          <div class="row">
+            <div class="col">
+              <button class="button button-positive icon ion-social-facebook"></button>
+            </div>
+            <div class="col">
+              <button class="button button-calm icon ion-social-twitter"></button>
+            </div>
+            <div class="col">
+              <button class="button button-assertive icon ion-social-googleplus"></button>
+            </div>
+            <div class="col">
+             <button class="button button-positive icon ion-social-linkedin-outline"></button>
+            </div>
+          </div>
+        </label>
+      </div>
+  </ion-content>
+</ion-view>
+

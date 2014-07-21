@@ -18,9 +18,9 @@
   <ion-content class="has-header has-subheader">
     <ion-list>
       <ion-item ng-repeat="task in contacts" type="item-text-wrap" class="item-icon-right">
-        <h3>{{task.name}}</h3>
-        <p>{{task.number}}</p>
-        <a class="button button-icon icon ion-chatbox" ng-click="composeMessage()"></a>
+        <h3>{{task.contact_name}}</h3>
+        <p>{{task.contact_number}}</p>
+        <a class="button button-icon icon ion-chatbox" data-id="{{task.id}}" ng-click="composeMessage()"></a>
       </ion-item>
     </ion-list>
   </ion-content>

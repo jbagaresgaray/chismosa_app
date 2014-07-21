@@ -12,12 +12,14 @@
 
   <ion-content class="has-header">
     <ion-list>
-      <ion-item ng-repeat="contact in contacts" type="item-text-wrap" ng-click="openProfile()">
+      <ion-item ng-repeat="contact in contacts" type="item-text-wrap" ng-if="contacts.length > 0">
         <div class="details item-icon-right">
-          <img class="rounded" src="img/photo.png" width="50" height="50" />
-          <h3>{{contact.name}}</h3>
-          <p>{{contact.areacode}}{{contact.mobile_number}}</p>
-          <a class="button button-icon icon ion-chatbox"></a>
+          <div ng-click="openProfile({{contact.id}})">
+            <img class="rounded" src="img/photo.png" width="50" height="50" />
+            <h3>{{contact.contact_name}}</h3>
+            <p>{{contact.contact_areacode}}{{contact.contact_number}}</p>
+          </div>
+          <a class="button button-icon icon ion-chatbox" ng-click="composeMessage()"></a>
         </div>
       </ion-item>
     </ion-list>

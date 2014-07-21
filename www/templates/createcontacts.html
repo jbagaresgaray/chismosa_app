@@ -5,37 +5,35 @@
     </div>
     <h1 class="title"></h1>
     <div class="buttons">
-      <button class="button button-icon icon ion-android-checkmark"></button>
+      <button class="button button-icon icon ion-android-checkmark" ng-click="saveContacts()"></button>
     </div>
   </ion-header-bar>
 
   <ion-content class="has-header padding">
-    <form ng-submit="doLogin()">
       <div class="list">
-        <label class="item item-input item-stacked-label">
+        <label class="item item-input item-floating-label">
           <span class="input-label">Name (optional)</span>
-          <input type="text" placeholder="Name">
+          <input type="text" placeholder="Name" ng-model="newcontact.name" name="name" id="name">
         </label>
         <div class="row">
           <div class="col col-25">
-            <label class="item item-input item-stacked-label">
+            <label class="item item-input item-floating-label">
               <span class="input-label">Area Code</span>
-              <input type="text" placeholder="Area Code">
+              <input type="text" placeholder="Area Code" ng-model="newcontact.areacode" name="areacode" id="areacode">
             </label>
           </div>
           <div class="col col-75">
-            <label class="item item-input item-stacked-label">
+            <label class="item item-input item-floating-label">
               <span class="input-label">Mobile Number</span>
-              <input type="text" placeholder="Mobile Number">
+              <input type="text" placeholder="Mobile Number" ng-model="newcontact.mobile_number" name="mobile_number" id="mobile_number">
             </label>
           </div>
         </div>
-        <label class="item item-input item-stacked-label">
+        <label class="item item-input item-floating-label">
           <span class="input-label">Email</span>
-          <input type="text" placeholder="account@example.com">
+          <input type="text" placeholder="account@example.com" ng-model="newcontact.email" name="email" id="email">
         </label>
       </div>
-    </form>
   </ion-content>
 
 </div>

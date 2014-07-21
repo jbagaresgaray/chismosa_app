@@ -1,7 +1,7 @@
 <div class="modal">
   <ion-header-bar class="bar-dark">
     <div class="buttons">
-      <button class="button button-clear" ng-click="closeprofile()"><i class="icon ion-ios7-arrow-back"></i> Philip</button>
+      <button class="button button-clear" ng-click="closeprofile()"><i class="icon ion-ios7-arrow-back"></i> {{profiledetail.contact_name}}</button>
     </div>
     <h1 class="title"></h1>
     <div class="buttons">
@@ -14,16 +14,19 @@
 
     <div class="list card">
       <a class="item coverphoto">
-        <center><img class="rounded" src="img/photo.png" style="width:100px;height:100px;" width="100" height="100"/></center>
+        <center>
+          <img class="rounded" src="img/photo.png" style="width:100px;height:100px;" width="100" height="100"/>
+          <h2><strong>{{profiledetail.contact_name}}</strong></h2>
+        </center>
       </a>
       <a class="item item-icon-left">
-        <i class="icon ion-chatbox-working"></i>Status
+        <i class="icon ion-ios7-telephone"></i>{{profiledetail.contact_areacode}}{{profiledetail.contact_number}}
       </a>
-      <a class="item item-icon-left">
-        <i class="icon ion-ios7-telephone"></i>Mobile Number
-      </a>
-      <a class="item item-icon-left">
-        <i class="icon ion-ios7-email"></i>Email
+      <a class="item item-icon-left" >
+        <i class="icon ion-ios7-email"></i>
+        <span ng-if="profiledetail.contact_email !== 'undefined'">
+         {{profiledetail.contact_email}}
+        </span>
       </a>
     </div>
     <button class="button button-block button-energized" ng-click="composeMessage()">

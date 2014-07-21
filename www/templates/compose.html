@@ -14,9 +14,13 @@
 
   <ion-content class="has-header has-subheader">
     <ion-list>
-      <ion-item ng-repeat="task in contacts" type="item-text-wrap">
-        <h3>{{task.name}}</h3>
-        <p>{{task.number}}</p>
+      <ion-item ng-repeat="contact in contacts" type="item-text-wrap">
+        <div class="details item-icon-right">
+          <img class="rounded" src="img/photo.png" width="50" height="50" />
+          <h3>{{contact.contact_name}}</h3>
+          <p>{{contact.contact_areacode}}{{contact.contact_number}}</p>
+          <a class="button button-icon icon ion-chatbox" ng-click="openMessageDetail()"></a>
+        </div>
       </ion-item>
     </ion-list>
 

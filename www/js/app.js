@@ -5,89 +5,95 @@
 // the 2nd parameter is an array of 'requires'
 
 
-angular.module('todo', ['ionic', 'todo.controllers','todo.services'])
+angular.module('todo', ['ionic', 'todo.controllers', 'todo.services'])
 
 //angular.module('todo', ['ionic'])
 
-.run(function ($ionicPlatform) {
-  $ionicPlatform.ready(function () {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if (window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-  });
+.run(function($ionicPlatform) {
+    $ionicPlatform.ready(function() {
+        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+        // for form inputs)
+        if (window.cordova && window.cordova.plugins.Keyboard) {
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+        }
+        if (window.StatusBar) {
+            StatusBar.styleDefault();
+        }
+    });
 })
 
-.config(function ($stateProvider, $urlRouterProvider) {
-  $stateProvider
+.config(function($stateProvider, $urlRouterProvider) {
+    $stateProvider
 
     .state('login', {
-      url: "/login",
-      templateUrl: "templates/login.html",
-      controller: 'LoginCtrl'
+        url: "/login",
+        templateUrl: "templates/login.html",
+        controller: 'LoginCtrl'
+    })
+
+    .state('signup', {
+        url: "/signup",
+        templateUrl: "templates/signup.html",
+        controller: 'SignupCtrl'
     })
 
     .state('app', {
-      url: "/app",
-      abstract: true,
-      templateUrl: "templates/menu.html",
-      controller: 'AppCtrl'
+        url: "/app",
+        abstract: true,
+        templateUrl: "templates/menu.html",
+        controller: 'AppCtrl'
     })
 
     .state('app.home', {
-      url: "/home",
-      views: {
-        'home-tab': {
-          templateUrl: "templates/messages.html",
-          controller: 'MsgCtrl'
+        url: "/home",
+        views: {
+            'home-tab': {
+                templateUrl: "templates/messages.html",
+                controller: 'MsgCtrl'
+            }
         }
-      }
     })
 
     .state('app.profile', {
-      url: "/profile",
-      views: {
-        'profile-tab': {
-          templateUrl: "templates/profile.html",
-          controller: 'ProfileCtrl'
+        url: "/profile",
+        views: {
+            'profile-tab': {
+                templateUrl: "templates/profile.html",
+                controller: 'ProfileCtrl'
+            }
         }
-      }
     })
 
     .state('app.contact', {
-      url: "/contact",
-      views: {
-        'contact-tab': {
-          templateUrl: "templates/contacts.html",
-          controller: 'ContactsCtrl'
+        url: "/contact",
+        views: {
+            'contact-tab': {
+                templateUrl: "templates/contacts.html",
+                controller: 'ContactsCtrl'
+            }
         }
-      }
     })
 
     .state('app.search', {
-      url: "/search",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/search.html",
-          controller: 'SearchCtrl'
+        url: "/search",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/search.html",
+                controller: 'SearchCtrl'
+            }
         }
-      }
     })
 
     .state('app.message-detail', {
-      url: "/messages/:id",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/messageDetail.html",
-          controller: 'MsgCtrl'
+        url: "/messages/:id",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/messageDetail.html",
+                controller: 'MsgCtrl'
+            }
         }
-      }
     });
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+    // if none of the above states are matched, use this as the fallback
+    $urlRouterProvider.otherwise('/login');
 });
