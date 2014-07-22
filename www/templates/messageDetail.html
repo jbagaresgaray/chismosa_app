@@ -1,11 +1,11 @@
 <div class="modal">
   <ion-header-bar class="bar-dark">
     <div class="buttons">
-      <button class="button button-clear" ng-click="closeMessageDetail()"><i class="icon ion-ios7-arrow-back"></i> Philip</button>
+      <button class="button button-clear" ng-click="closeMessageDetail()"><i class="icon ion-ios7-arrow-back"></i> {{profiledetail.contact_name}}</button>
     </div>
     <h1 class="title"></h1>
     <div class="buttons">
-      <button class="button button-icon icon ion-person" ng-click="profile()"></button>
+      <button class="button button-icon icon ion-person" ng-click="openProfile(contact_id)"></button>
     </div>
   </ion-header-bar>
 
@@ -21,11 +21,11 @@
   <ion-footer-bar class="bar item-input-inset large-input">
     <div class="row">
       <div class="col col-75">
-        <textarea id="message" type="text" placeholder="Text message" ng-model="message" style="overflow:hidden;height:60px;" ng-trim="false" maxlength="450"></textarea>
+        <textarea id="message" type="text" placeholder="Text message" ng-model="chat.message" style="overflow:hidden;height:60px;" ng-trim="false" maxlength="450"></textarea>
       </div>
       <div class="col">
-        <span>{{450 - message.length}} / 450 </span>
-        <button class="button button-clear icon ion-android-send" ng-click="clearSearch()"></button>
+        <span>{{450 - chat.message.length}} / 450 </span>
+        <button class="button button-clear icon ion-android-send" ng-click="submitChat(contact_id)"></button>
       </div>
     </div>
   </ion-footer-bar>

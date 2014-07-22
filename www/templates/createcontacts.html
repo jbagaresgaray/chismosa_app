@@ -4,12 +4,13 @@
       <button class="button button-clear" ng-click="closeCreateContact()"><i class="icon ion-ios7-arrow-back"></i>Contact</button>
     </div>
     <h1 class="title"></h1>
-    <div class="buttons">
-      <button class="button button-icon icon ion-android-checkmark" ng-click="saveContacts()"></button>
+    <div class="buttons" ng-switch on="state">
+      <button class="button button-icon icon ion-android-checkmark" ng-switch-when="update" ng-click="updateContacts()"></button>
+      <button class="button button-icon icon ion-checkmark-round" ng-switch-default ng-click="saveContacts()"></button>
     </div>
   </ion-header-bar>
 
-  <ion-content class="has-header padding">
+  <ion-content class="has-header padding" scroll="false">
       <div class="list">
         <label class="item item-input item-floating-label">
           <span class="input-label">Name (optional)</span>

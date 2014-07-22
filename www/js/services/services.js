@@ -15,14 +15,6 @@ services.factory('LoginFactory', ['$http',
     }
 ]);
 
-
-
-
-
-
-
-
-
 services.factory('UsersFactory', ['$http',
     function($http) {
         var UserFactory = {};
@@ -36,8 +28,21 @@ services.factory('UsersFactory', ['$http',
         UserFactory.show = function(id) {
             return $http.get(baseUrl + '/users_api/user/' + id);
         }
-        UserFactory.update = function(users) {
-            return $http.put(baseUrl + '/users_api/user/' + users.id, users);
+
+        UserFactory.updateName = function(users) {
+            return $http.put(baseUrl + '/users_api/user/name/' + users.id, users);
+        }
+        UserFactory.updateStatus = function(users) {
+            return $http.put(baseUrl + '/users_api/user/status/' + users.id, users);
+        }
+        UserFactory.updateNumber = function(users) {
+            return $http.put(baseUrl + '/users_api/user/mobile/' + users.id, users);
+        }
+        UserFactory.updateEmail = function(users) {
+            return $http.put(baseUrl + '/users_api/user/email/' + users.id, users);
+        }
+        UserFactory.updateProfilePic = function(users) {
+            return $http.put(baseUrl + '/users_api/user/picture/' + users.id, users);
         }
         UserFactory.delete = function(id) {
             return $http.delete(baseUrl + '/users_api/user/' + id);
@@ -63,8 +68,15 @@ services.factory('ContactsFactory', ['$http',
             return $http.get(baseUrl + '/contacts_api/contacts/mobile/' + mobile_number);
         }
 
+        ContactsFactory.deleteContacts = function(user_id, id) {
+            return $http.delete(baseUrl + '/contacts_api/user_contacts/' + user_id + '/' + id);
+        }
 
         ContactsFactory.create = function(contact) {
+            return $http.post(baseUrl + '/contacts_api/contacts', contact);
+        }
+
+        ContactsFactory.findByAll = function(searchKey) {
             return $http.post(baseUrl + '/contacts_api/contacts', contact);
         }
 
@@ -73,42 +85,27 @@ services.factory('ContactsFactory', ['$http',
 ]);
 
 
-
-
-
-
-
-
-
 services.factory('ChatsFactory', ['$http',
     function($http) {
-        var UserFactory = {};
+        var ChatsFactory = {};
 
-        UserFactory.query = function() {
-            return $http.get(baseUrl + '/api/employee');
+        ChatsFactory.history = function(user_id) {
+            return $http.get(baseUrl + '/message_api/chat/'  + user_id);
         }
 
-        UserFactory.create = function(employee) {
-            return $http.post(baseUrl + '/api/employee', employee);
+        ChatsFactory.send = function(chat) {
+            return $http.post(baseUrl + '/message_api/chat/', chat);
         }
 
-        return EmployeesFactory;
+        ChatsFactory.query = function(user_id,receiver_id) {
+            return $http.get(baseUrl + '/message_api/chat/user/' + user_id + '/' + receiver_id);
+        }
+
+        ChatsFactory.delete = function(user_id,receiver_id) {
+            return $http.post(baseUrl + '/message_api/chat/user/' + user_id + '/' + receiver_id);
+        }
+
+        return ChatsFactory;
     }
 ]);
 
-services.factory('ChatFactory', ['$http',
-    function($http) {
-        var EmployeeFactory = {};
-        EmployeeFactory.show = function(id) {
-            return $http.get(baseUrl + '/api/employee/' + id);
-        }
-        EmployeeFactory.update = function(employee) {
-            return $http.put(baseUrl + '/api/employee/' + employee._id, employee);
-        }
-        EmployeeFactory.delete = function(id) {
-            return $http.delete(baseUrl + '/api/employee/' + id);
-        }
-
-        return EmployeeFactory;
-    }
-]);

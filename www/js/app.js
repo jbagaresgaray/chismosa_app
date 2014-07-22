@@ -4,10 +4,12 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
+var Application = Application || {};
+
+Application.Controllers = angular.module('applicaton.controllers', []);
+Application.Services = angular.module('applicaton.services', []);
 
 angular.module('todo', ['ionic', 'todo.controllers', 'todo.services'])
-
-//angular.module('todo', ['ionic'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
