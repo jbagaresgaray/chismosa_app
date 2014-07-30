@@ -1,6 +1,6 @@
 'use strict';
 
-var ProfileCtrl = function ($scope, $ionicPopup, $ionicLoading,$location, UsersFactory) {
+var ProfileCtrl = function ($scope, $ionicPopup, $ionicLoading, $location, UsersFactory, NotifFactory) {
   console.log('ProfileCtrl');
 
   var users = JSON.parse(window.localStorage['users'] || '{}');
@@ -20,7 +20,7 @@ var ProfileCtrl = function ($scope, $ionicPopup, $ionicLoading,$location, UsersF
           if (!$scope.profile.name) {
             e.preventDefault();
           } else {
-              saveName();
+            saveName();
           }
         }
             }, ]
@@ -103,7 +103,9 @@ var ProfileCtrl = function ($scope, $ionicPopup, $ionicLoading,$location, UsersF
       title: 'Edit Mobile Number',
       scope: $scope,
       buttons: [
-        {text: 'Cancel'},
+        {
+          text: 'Cancel'
+        },
         {
           text: '<b>Save</b>',
           type: 'button-positive',
@@ -309,7 +311,41 @@ var ProfileCtrl = function ($scope, $ionicPopup, $ionicLoading,$location, UsersF
       });
   }
 
+
+
+  $scope.doRefresh = function () {
+    console.log('Refreshing!');
+    $scope.notifs = {};
+    NotifFactory.query(users.id)
+      .success(function (data) {
+        console.log(data);
+        if (data[0].success === true) {
+          $scope.notifs = data[0].notif;
+        }
+      })
+      .finally(function () {
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+  };
+
+  function getNotification() {
+    console.log('getNotification');
+    $scope.notifs = {};
+    NotifFactory.query(users.id)
+      .success(function (data) {
+        console.log(data);
+        if (data[0].success === true) {
+          $scope.notifs = data[0].notif;
+        }
+      })
+      .error(function (error) {
+        console.log(error);
+        $scope.status = 'Unable to load customer data: ' + error.message;
+      });
+  }
+
   getUserProfile();
+  getNotification();
 };
 
-Application.Controllers.controller('ProfileCtrl', ['$scope', '$ionicPopup', '$ionicLoading','$location', 'UsersFactory', ProfileCtrl]);
+Application.Controllers.controller('ProfileCtrl', ['$scope', '$ionicPopup', '$ionicLoading', '$location', 'UsersFactory', ProfileCtrl]);

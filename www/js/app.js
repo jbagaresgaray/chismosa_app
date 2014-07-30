@@ -6,13 +6,14 @@
 
 var Application = Application || {};
 
-Application.Controllers = angular.module('applicaton.controllers', []);
-Application.Services = angular.module('applicaton.services', []);
+Application.Controllers = angular.module('todo.controllers', []);
+Application.Services = angular.module('todo.services', []);
+Application.Directive = angular.module('todo.directive', []);
 
-angular.module('todo', ['ionic', 'todo.controllers', 'todo.services'])
+angular.module('todo', ['ionic', 'todo.controllers', 'todo.services', 'todo.directive'])
 
-.run(function($ionicPlatform) {
-    $ionicPlatform.ready(function() {
+.run(function ($ionicPlatform) {
+    $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
         if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -24,7 +25,7 @@ angular.module('todo', ['ionic', 'todo.controllers', 'todo.services'])
     });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
 
     .state('login', {
@@ -33,10 +34,22 @@ angular.module('todo', ['ionic', 'todo.controllers', 'todo.services'])
         controller: 'LoginCtrl'
     })
 
+    .state('forgot', {
+        url: "/forgot",
+        templateUrl: "templates/forgot.html",
+        controller: 'ForgotCtrl'
+    })
+
     .state('signup', {
         url: "/signup",
         templateUrl: "templates/signup.html",
         controller: 'SignupCtrl'
+    })
+
+    .state('intro', {
+        url: "/intro",
+        templateUrl: "templates/intro.html",
+        controller: 'IntroCtrl'
     })
 
     .state('app', {

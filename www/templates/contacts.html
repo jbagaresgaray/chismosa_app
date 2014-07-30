@@ -1,21 +1,26 @@
-<ion-view title="chismosa">
+<ion-view title="">
 
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
 
   <ion-nav-buttons side="right">
-    <button class="button button-icon icon ion-search" ng-click="openSearch()"></button>
-    <button class="button button-icon icon ion-plus-round" ng-click="openCreateContact()"></button>
+    <button class="button button-icon icon ion-ios7-search" ng-click="openSearch()"></button>
+    <!--<button class="button button-icon icon ion-plus-round" ng-click="openCreateContact()"></button>-->
+    <button menu-toggle="right" class="button button-icon ion-ios7-bell-outline" ng-click="doRefresh()">
+      <span class="badge badge-assertive header-badge">5</span>
+    </button>
   </ion-nav-buttons>
 
-
   <ion-content class="has-header">
+    <ion-refresher on-refresh="doRefreshContacts()" pulling-text="Pull to refresh..." refreshing-text="Refreshing!" refreshing-icon="ion-loading-a">
+    </ion-refresher>
     <ion-list>
       <ion-item ng-repeat="contact in contacts" type="item-text-wrap" ng-if="contacts.length > 0">
         <div class="details item-icon-right">
           <div ng-click="openProfile(contact.id)">
-            <img class="rounded" src="img/photo.png" width="50" height="50" />
+            <img class="rounded" ng-src="data:image/png;base64,{{contact.pic_blob}}" width="50" height="50" ng-if="contact.pic_blob.length > 0" />
+            <img class="rounded" ng-src="img/photo.png" width="50" height="50" ng-if="contact.pic_blob.length < 1 || contact.pic_blob == null" />
             <h3>{{contact.contact_name}}</h3>
             <p>{{contact.contact_areacode}}{{contact.contact_number}}</p>
           </div>

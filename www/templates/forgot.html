@@ -1,0 +1,30 @@
+<ion-view title="Forgot">
+  <ion-header-bar class="bar-dark">
+    <h1 class="title">Chismosa Login</h1>
+  </ion-header-bar>
+  <ion-content  scroll="false">
+    <form ng-submit="doLogin()">
+      <div class="list">
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Email Address</span>
+          <input name="email" id="email" type="email" ng-model="forgot.email" placeholder="Email Address" required >
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Recover</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+  <ion-footer-bar align-title="left" class="bar-light">
+    <div class="buttons">
+      <div class="buttons" ng-click="doLogin()">
+        <button class="button button-energized">Log in</button>
+      </div>
+    </div>
+    <h1 class="title"></h1>
+      <div class="buttons" ng-click="doSignUp()">
+        <button class="button button-positive">Sign Up</button>
+      </div>
+  </ion-footer-bar>
+</ion-view>
+

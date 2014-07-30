@@ -3,24 +3,33 @@
     <div class="buttons">
       <button class="button button-clear" ng-click="closeSearch()"><i class="icon ion-ios7-arrow-back"></i> Back</button>
     </div>
-    <h1 class="title"></h1>
+    <h1 class="title">Find Friends</h1>
   </ion-header-bar>
 
   <ion-header-bar class="bar bar-subheader item-input-inset">
     <label class="item-input-wrapper">
         <i class="icon ion-android-search placeholder-icon"></i>
-        <input id="searchKey" type="search" placeholder="Search" ng-model="searchKey" ng-change="search()" autocorrect="off" >
+        <input id="searchKey" type="search" placeholder="Search" ng-model="searchKey" autocorrect="off" >
     </label>
-    <!--<button class="button button-positive" ng-click="search()">Search</button>-->
+    <button class="button button-clear" ng-click="search(searchKey)">Search</button>
   </ion-header-bar>
 
 
   <ion-content class="has-header has-subheader">
+    <ion-refresher on-refresh="doRefreshSearch(searchKey)"
+                   pulling-text="Pull to refresh..."
+                   refreshing-text="Refreshing!"
+                   refreshing-icon="ion-loading-a">
+    </ion-refresher>
     <ion-list>
-      <ion-item ng-repeat="task in contacts" type="item-text-wrap" class="item-icon-right">
-        <h3>{{task.contact_name}}</h3>
-        <p>{{task.contact_number}}</p>
-        <a class="button button-icon icon ion-chatbox" data-id="{{task.id}}" ng-click="composeMessage()"></a>
+      <ion-item ng-repeat="task in users" type="item-text-wrap" class="item-icon-right" ng-if="users.length > 0">
+        <div class="details item-icon-right">
+          <img class="rounded" ng-src="data:image/png;base64,{{task.pic_blob}}" width="50" height="50" ng-if="task.pic_blob.length > 0"/>
+          <img class="rounded" ng-src="img/photo.png" width="50" height="50" ng-if="task.pic_blob.length < 1 || task.pic_blob == null" />
+          <h3>{{task.name}}</h3>
+          <p>{{task.areacode}}{{task.mobile_number}}</p>
+          <a class="button button-icon icon ion-ios7-personadd" ng-click="sendFriendRequest(task.id)"></a>
+        </div>
       </ion-item>
     </ion-list>
   </ion-content>

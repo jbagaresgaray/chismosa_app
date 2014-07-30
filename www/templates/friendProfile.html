@@ -5,8 +5,10 @@
     </div>
     <h1 class="title"></h1>
     <div class="buttons">
-      <button class="button button-clear" ng-click="showConfirm(profiledetail.id)"><i class="icon ion-trash-a"></i></button>
-      <button class="button button-clear" ng-click="modifyContact()"><i class="icon ion-edit"></i></button>
+      <button class="button button-clear" ng-click="showConfirm(profiledetail.id)"><i class="icon ion-trash-a"></i>
+      </button>
+      <button class="button button-clear" ng-click="modifyContact()"><i class="icon ion-edit"></i>
+      </button>
     </div>
   </ion-header-bar>
 
@@ -15,14 +17,15 @@
     <div class="list card">
       <a class="item coverphoto">
         <center>
-          <img class="rounded" src="img/photo.png" style="width:100px;height:100px;" width="100" height="100"/>
+          <img class="rounded" ng-src="data:image/png;base64,{{profiledetail.pic_blob}}" width="100" height="100" ng-if="profiledetail.pic_blob.length > 0" />
+          <img class="rounded" ng-src="img/photo.png" width="100" height="100" ng-if="profiledetail.pic_blob.length < 1 || profiledetail.pic_blob == null" />
           <h2><strong>{{profiledetail.contact_name}}</strong></h2>
         </center>
       </a>
       <a class="item item-icon-left">
         <i class="icon ion-ios7-telephone"></i>{{profiledetail.contact_areacode}}{{profiledetail.contact_number}}
       </a>
-      <a class="item item-icon-left" >
+      <a class="item item-icon-left">
         <i class="icon ion-ios7-email"></i>
         <span ng-if="profiledetail.contact_email !== 'undefined'">
          {{profiledetail.contact_email}}

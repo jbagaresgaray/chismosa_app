@@ -11,23 +11,28 @@
 
 
 
-  <ion-content class="has-header padding" start-y="120">
+  <ion-content class="has-header has-footer padding" start-y="120">
+    <ion-refresher on-refresh="doRefreshMessage(contact_id)"
+                   pulling-text="Pull to refresh..."
+                   refreshing-text="Refreshing!"
+                   refreshing-icon="ion-loading-c">
+    </ion-refresher>
     <ol class="messages">
       <li ng-repeat="message in messagesdetails" ng-bind-html="message.message"></li>
     </ol>
   </ion-content>
 
 
-  <ion-footer-bar class="bar item-input-inset large-input">
-    <div class="row">
-      <div class="col col-75">
-        <textarea id="message" type="text" placeholder="Text message" ng-model="chat.message" style="overflow:hidden;height:60px;" ng-trim="false" maxlength="450"></textarea>
-      </div>
-      <div class="col">
-        <span>{{450 - chat.message.length}} / 450 </span>
-        <button class="button button-clear icon ion-android-send" ng-click="submitChat(contact_id)"></button>
-      </div>
-    </div>
+  <ion-footer-bar keyboard-attach id="bar-footer-message-box">
+    <form name="messageForm" class="messageForm">
+		<label class="item item-input">
+			<textarea id="commentBox" placeholder="What do you want to say?" ng-model="chat.message"></textarea>
+<!--		    <input type="text" id="commentBox" placeholder="Text message" ng-model="chat.message">-->
+		</label>
+	</form>
+	<div class="save-button">
+		<button class="button button-icon ion-android-send"  ng-click="submitChat(contact_id)" style=" margin-left: -13px; "></button>
+	</div>
   </ion-footer-bar>
 
 </div>
