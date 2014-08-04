@@ -7,7 +7,7 @@
   <ion-nav-buttons side="right">
     <button class="button button-icon icon ion-ios7-compose-outline" ng-click="compose()"></button>
     <button menu-toggle="right" class="button button-icon ion-ios7-bell-outline" ng-click="doRefresh()">
-      <span class="badge badge-assertive header-badge">5</span>
+      <span class="badge badge-assertive header-badge" ng-if="notifCount > 0">{{notifCount}}</span>
     </button>
   </ion-nav-buttons>
 

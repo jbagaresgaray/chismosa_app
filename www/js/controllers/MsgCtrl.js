@@ -1,60 +1,60 @@
 'use strict';
 
-var MsgCtrl = function ($scope, $ionicModal, $ionicLoading, $location, $ionicPopup, $ionicScrollDelegate, $timeout,
+var MsgCtrl = function($scope, $ionicModal, $ionicLoading, $location, $ionicPopup, $ionicScrollDelegate, $timeout,
     ContactsFactory, ChatsFactory, NotifFactory, socket) {
     console.log('MsgCtrl');
 
     var users = JSON.parse(window.localStorage['users'] || '{}');
 
     function mysql_real_escape_string(str) {
-        return str.replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, function (char) {
+        return str.replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, function(char) {
             switch (char) {
-            case "\0":
-                return "\\0";
-            case "\x08":
-                return "\\b";
-            case "\x09":
-                return "\\t";
-            case "\x1a":
-                return "\\z";
-            case "\n":
-                return "\\n";
-            case "\r":
-                return "\\r";
-            case "\"":
-            case "'":
-            case "\\":
-            case "%":
-                return "\\" + char; // prepends a backslash to backslash, percent,
-                // and double/single quotes
+                case "\0":
+                    return "\\0";
+                case "\x08":
+                    return "\\b";
+                case "\x09":
+                    return "\\t";
+                case "\x1a":
+                    return "\\z";
+                case "\n":
+                    return "\\n";
+                case "\r":
+                    return "\\r";
+                case "\"":
+                case "'":
+                case "\\":
+                case "%":
+                    return "\\" + char; // prepends a backslash to backslash, percent,
+                    // and double/single quotes
             }
         });
     }
 
     $ionicModal.fromTemplateUrl('templates/compose.html', {
         scope: $scope
-    }).then(function ($ionicModal) {
+    }).then(function($ionicModal) {
         $scope.composeModal = $ionicModal;
     });
-    $scope.compose = function () {
+    $scope.compose = function() {
         console.log('compose');
         $scope.composeModal.show();
     };
-    $scope.closeCompose = function () {
+    $scope.closeCompose = function() {
         console.log('closeCompose');
         $scope.composeModal.hide();
     };
-    $scope.$on('$destroy', function () {
+    $scope.$on('$destroy', function() {
         $scope.composeModal.remove();
     });
 
 
     $ionicModal.fromTemplateUrl('templates/messageDetail.html', {
         scope: $scope
-    }).then(function ($ionicModal) {
+    }).then(function($ionicModal) {
         $scope.messagedetail = $ionicModal;
     });
-    $scope.openMessageDetail = function (receiver_id) {
+    $scope.openMessageDetail = function(receiver_id) {
         console.log('openMessageDetail');
 
         getChatDetail(receiver_id);
@@ -62,62 +62,64 @@ var MsgCtrl = function ($scope, $ionicModal, $ionicLoading, $location, $ionicPop
 
         $scope.messagedetail.show();
     };
-    $scope.composeMessage = function () {
+    $scope.composeMessage = function() {
         console.log('openMessageDetail');
         $scope.messagedetail.show();
     };
-    $scope.closeMessageDetail = function () {
+    $scope.closeMessageDetail = function() {
         console.log('closeMessageDetail');
         $scope.messagedetail.hide();
     };
-    $scope.$on('$destroy', function () {
+    $scope.$on('$destroy', function() {
         $scope.messagedetail.remove();
     });
 
     $ionicModal.fromTemplateUrl('templates/friendProfile.html', {
         scope: $scope
-    }).then(function ($ionicModal) {
+    }).then(function($ionicModal) {
         $scope.profilemodal = $ionicModal;
     });
-    $scope.openProfile = function () {
+    $scope.openProfile = function() {
         console.log('profile');
         $scope.profilemodal.show();
     };
-    $scope.closeprofile = function () {
+    $scope.closeprofile = function() {
         console.log('closeprofile');
         $scope.profilemodal.hide();
     };
-    $scope.$on('$destroy', function () {
+    $scope.$on('$destroy', function() {
         $scope.profilemodal.remove();
     });
 
     $ionicModal.fromTemplateUrl('templates/createcontacts.html', {
         scope: $scope
-    }).then(function ($ionicModal) {
+    }).then(function($ionicModal) {
         $scope.createModal = $ionicModal;
     });
-    $scope.modifyContact = function () {
+    $scope.modifyContact = function() {
         console.log('openCreateContact');
         $scope.createModal.show();
     };
-    $scope.closeCreateContact = function () {
+    $scope.closeCreateContact = function() {
         console.log('closeCreateContact');
         $scope.createModal.hide();
     };
-    $scope.$on('$destroy', function () {
+    $scope.$on('$destroy', function() {
         $scope.createModal.remove();
     });
 
 
-    $scope.submitChat = function (receiver_id) {
+    $scope.submitChat = function(receiver_id) {
 
         $scope.chat.receiver_id = receiver_id;
         $scope.chat.user_id = users.id;
 
         console.log($scope.chat);
 
+        socket.emit('message', receiver_id);
+
         ChatsFactory.send($scope.chat)
-            .success(function (data) {
+            .success(function(data) {
                 console.log(data);
                 if (data[0].success === false) {
                     $ionicLoading.hide();
@@ -130,7 +132,7 @@ var MsgCtrl = function ($scope, $ionicModal, $ionicLoading, $location, $ionicPop
                     $scope.chat.chatmessage = "";
                 }
             })
-            .error(function (error) {
+            .error(function(error) {
                 $ionicLoading.hide();
                 console.log(error);
                 $scope.status = 'Unable to load customer data: ' + error.message;
@@ -143,12 +145,12 @@ var MsgCtrl = function ($scope, $ionicModal, $ionicLoading, $location, $ionicPop
         });
 
         ContactsFactory.query(users.id)
-            .success(function (data) {
+            .success(function(data) {
                 $scope.contacts = data;
                 window.localStorage['contacts'] = JSON.stringify(data);
                 $ionicLoading.hide();
             })
-            .error(function (error) {
+            .error(function(error) {
                 $ionicLoading.hide();
                 console.log(error);
                 $scope.status = 'Unable to load customer data: ' + error.message;
@@ -161,7 +163,7 @@ var MsgCtrl = function ($scope, $ionicModal, $ionicLoading, $location, $ionicPop
         });
         $scope.newcontact = {};
         ContactsFactory.showdetail(user_id, id)
-            .success(function (data) {
+            .success(function(data) {
                 $scope.profiledetail = data[0];
                 $scope.contact_id = data[0].id;
 
@@ -172,7 +174,7 @@ var MsgCtrl = function ($scope, $ionicModal, $ionicLoading, $location, $ionicPop
 
                 $ionicLoading.hide();
             })
-            .error(function (error) {
+            .error(function(error) {
                 $ionicLoading.hide();
                 console.log(error);
                 $scope.status = 'Unable to load customer data: ' + error.message;
@@ -186,7 +188,7 @@ var MsgCtrl = function ($scope, $ionicModal, $ionicLoading, $location, $ionicPop
         });
 
         ChatsFactory.history(users.id)
-            .success(function (data) {
+            .success(function(data) {
                 console.log(data);
                 if (data[0].success === true) {
                     $ionicLoading.hide();
@@ -195,7 +197,7 @@ var MsgCtrl = function ($scope, $ionicModal, $ionicLoading, $location, $ionicPop
                     $ionicLoading.hide();
                 }
             })
-            .error(function (error) {
+            .error(function(error) {
                 $ionicLoading.hide();
                 console.log(error);
                 $scope.status = 'Unable to load user chat history: ' + error.message;
@@ -207,9 +209,10 @@ var MsgCtrl = function ($scope, $ionicModal, $ionicLoading, $location, $ionicPop
         $ionicLoading.show({
             template: 'Loading...'
         });
-
+        $scope.messagesdetails = {};
+        $scope.user_id = users.id;
         ChatsFactory.query(users.id, receiver_id)
-            .success(function (data) {
+            .success(function(data) {
                 if (data[0].success === true) {
                     $ionicLoading.hide();
 
@@ -240,31 +243,33 @@ var MsgCtrl = function ($scope, $ionicModal, $ionicLoading, $location, $ionicPop
                     $ionicScrollDelegate.scrollBottom(true);
                 }
             })
-            .error(function (error) {
+            .error(function(error) {
                 $ionicLoading.hide();
                 console.log(error);
                 $scope.status = 'Unable to load user chat history: ' + error.message;
             });
     }
 
-    $scope.doRefresh = function () {
+    $scope.doRefresh = function() {
         console.log('Refreshing!');
         ChatsFactory.history(users.id)
-            .success(function (data) {
+            .success(function(data) {
                 if (data[0].success === true) {
                     $ionicLoading.hide();
                     $scope.messages = data[0].data;
                 }
             })
-            .finally(function () {
+            .finally(function() {
                 $scope.$broadcast('scroll.refreshComplete');
             });
     };
 
-    $scope.doRefreshMessage = function (receiver_id) {
+    $scope.doRefreshMessage = function(receiver_id) {
         console.log('Refreshing!');
+        $scope.messagesdetails = {};
+        $scope.user_id = users.id;
         ChatsFactory.query(users.id, receiver_id)
-            .success(function (data) {
+            .success(function(data) {
                 if (data[0].success === true) {
                     $ionicLoading.hide();
 
@@ -295,22 +300,24 @@ var MsgCtrl = function ($scope, $ionicModal, $ionicLoading, $location, $ionicPop
                     $ionicScrollDelegate.scrollBottom(true);
                 }
             })
-            .finally(function () {
+            .finally(function() {
                 $scope.$broadcast('scroll.refreshComplete');
             });
     };
 
-    $scope.doRefresh = function () {
+    $scope.doRefresh = function() {
         console.log('Refreshing!');
         $scope.notifs = {};
+        $scope.notifCount = 0;
         NotifFactory.query(users.id)
-            .success(function (data) {
+            .success(function(data) {
                 console.log(data);
                 if (data[0].success === true) {
                     $scope.notifs = data[0].notif;
+                    $scope.notifCount = data[0].count;
                 }
             })
-            .finally(function () {
+            .finally(function() {
                 $scope.$broadcast('scroll.refreshComplete');
             });
     };
@@ -320,18 +327,34 @@ var MsgCtrl = function ($scope, $ionicModal, $ionicLoading, $location, $ionicPop
     function getNotification() {
         console.log('getNotification');
         $scope.notifs = {};
+        $scope.notifCount = 0;
         NotifFactory.query(users.id)
-            .success(function (data) {
+            .success(function(data) {
                 console.log(data);
                 if (data[0].success === true) {
                     $scope.notifs = data[0].notif;
+                    $scope.notifCount = data[0].count;
                 }
             })
-            .error(function (error) {
+            .error(function(error) {
                 console.log(error);
                 $scope.status = 'Unable to load customer data: ' + error.message;
             });
     }
+
+    socket.on('connect', function() {
+        console.log('Socket connected');
+    });
+
+    socket.on('disconnect', function() {
+        console.log('Socket disconnected');
+    });
+
+    socket.on('message', function(msg) {
+        console.log('reply message');
+        console.log(msg);
+        getChatDetail(msg);
+    });
 
     getContacts();
     getChatHistory();
@@ -344,7 +367,12 @@ var MsgCtrl = function ($scope, $ionicModal, $ionicLoading, $location, $ionicPop
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 
-    /*socket.on('channels', function channels(channels) {
+    //App info
+    $scope.channels = [];
+    $scope.listeningChannels = [];
+    $scope.activeChannel = null;
+
+    socket.on('channels', function channels(channels) {
         console.log('channels', channels);
 
         console.log(channels);
@@ -354,15 +382,6 @@ var MsgCtrl = function ($scope, $ionicModal, $ionicLoading, $location, $ionicPop
 
     socket.on('message:received', function messageReceived(message) {
         $scope.messages.push(message);
-    });
-
-    socket.emit('user:joined', {
-        name: users.name
-    });
-
-    socket.on('user:joined', function (user) {
-        console.log('user:joined');
-        $scope.messages.push(user);
     });
 
     $scope.listenChannel = function listenChannel(channel) {
@@ -386,7 +405,7 @@ var MsgCtrl = function ($scope, $ionicModal, $ionicLoading, $location, $ionicPop
             $scope.messages.push(message);
         });
 
-        socket.on('message:remove:channel:' + channel, function (removalInfo) {
+        socket.on('message:remove:channel:' + channel, function(removalInfo) {
             console.log('removalInfo to remove: ', removalInfo);
             var expires = removalInfo.message.expires;
             var expireMessageIndex = $filter('messageByExpires')($scope.messages, expires);
@@ -398,7 +417,8 @@ var MsgCtrl = function ($scope, $ionicModal, $ionicLoading, $location, $ionicPop
 
         $scope.listeningChannels.push(channel);
 
-    }*/
+    }
+
 };
 
-Application.Controllers.controller('MsgCtrl', ['$scope', '$ionicModal', '$ionicLoading', 'ContactsFactory', MsgCtrl]);
+Application.Controllers.controller('MsgCtrl', ['$scope', '$ionicModal', '$ionicLoading', 'ContactsFactory', 'socket', MsgCtrl]);

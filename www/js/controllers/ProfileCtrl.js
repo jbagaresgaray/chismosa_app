@@ -316,11 +316,13 @@ var ProfileCtrl = function ($scope, $ionicPopup, $ionicLoading, $location, Users
   $scope.doRefresh = function () {
     console.log('Refreshing!');
     $scope.notifs = {};
+    $scope.notifCount = 0;
     NotifFactory.query(users.id)
       .success(function (data) {
         console.log(data);
         if (data[0].success === true) {
           $scope.notifs = data[0].notif;
+          $scope.notifCount = data[0].count;
         }
       })
       .finally(function () {
@@ -331,11 +333,13 @@ var ProfileCtrl = function ($scope, $ionicPopup, $ionicLoading, $location, Users
   function getNotification() {
     console.log('getNotification');
     $scope.notifs = {};
+    $scope.notifCount = 0;
     NotifFactory.query(users.id)
       .success(function (data) {
         console.log(data);
         if (data[0].success === true) {
           $scope.notifs = data[0].notif;
+          $scope.notifCount = data[0].count;
         }
       })
       .error(function (error) {

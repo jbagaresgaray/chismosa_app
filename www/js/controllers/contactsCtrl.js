@@ -408,6 +408,7 @@ var ContactsCtrl = function ($scope, $ionicModal, $ionicPopup, $location, $ionic
 
   $scope.doRefreshMessage = function (receiver_id) {
     console.log('Refreshing! doRefreshMessage');
+    $scope.user_id = users.id;
     ChatsFactory.query(users.id, receiver_id)
       .success(function (data) {
         if (data[0].success === true) {
@@ -453,7 +454,7 @@ var ContactsCtrl = function ($scope, $ionicModal, $ionicPopup, $location, $ionic
     $ionicLoading.show({
       template: 'Loading...'
     });
-
+    $scope.user_id = users.id;
     ChatsFactory.query(users.id, receiver_id)
       .success(function (data) {
         if (data[0].success === true) {
@@ -530,11 +531,13 @@ var ContactsCtrl = function ($scope, $ionicModal, $ionicPopup, $location, $ionic
   $scope.doRefresh = function () {
     console.log('Refreshing!');
     $scope.notifs = {};
+    $scope.notifCount = 0;
     NotifFactory.query(users.id)
       .success(function (data) {
         console.log(data);
         if (data[0].success === true) {
           $scope.notifs = data[0].notif;
+          $scope.notifCount = data[0].count;
         }
       })
       .finally(function () {
@@ -545,11 +548,13 @@ var ContactsCtrl = function ($scope, $ionicModal, $ionicPopup, $location, $ionic
   function getNotification() {
     console.log('getNotification');
     $scope.notifs = {};
+    $scope.notifCount = 0;
     NotifFactory.query(users.id)
       .success(function (data) {
         console.log(data);
         if (data[0].success === true) {
           $scope.notifs = data[0].notif;
+          $scope.notifCount = data[0].count;
         }
       })
       .error(function (error) {
