@@ -1,12 +1,12 @@
 <div class="modal">
-  <ion-header-bar class="bar-dark">
+  <ion-header-bar class="bar-positive">
     <div class="buttons">
-      <button class="button button-clear" ng-click="closeCreateContact()"><i class="icon ion-ios7-arrow-back"></i>Contact</button>
+      <button class="button button-clear" ng-click="modal.hide()"><i class="icon ion-ios-arrow-back"></i>Contact</button>
     </div>
     <h1 class="title"></h1>
     <div class="buttons" ng-switch on="state">
       <button class="button button-icon icon ion-android-checkmark" ng-switch-when="update" ng-click="updateContacts()"></button>
-      <button class="button button-icon icon ion-checkmark-round" ng-switch-default ng-click="saveContacts()"></button>
+      <button class="button button-icon icon ion-checkmark" ng-switch-default ng-click="saveContacts()"></button>
     </div>
   </ion-header-bar>
 
@@ -17,12 +17,6 @@
           <input type="text" placeholder="Name" ng-model="newcontact.name" name="name" id="name">
         </label>
         <div class="row">
-          <div class="col col-25">
-            <label class="item item-input item-floating-label">
-              <span class="input-label">Area Code</span>
-              <input type="text" placeholder="Area Code" ng-model="newcontact.areacode" name="areacode" id="areacode">
-            </label>
-          </div>
           <div class="col col-75">
             <label class="item item-input item-floating-label">
               <span class="input-label">Mobile Number</span>

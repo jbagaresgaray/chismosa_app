@@ -1,0 +1,25 @@
+<ion-view title="{{contactName}}">
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-person" ng-click="openProfile(contact_id)"></button>
+    </ion-nav-buttons>
+
+    <ion-content class="has-header has-footer padding" start-y="120">
+        <ion-refresher on-refresh="doRefreshMessage(contact_id)" pulling-text="Pull to refresh..." refreshing-text="Refreshing!" refreshing-icon="ion-loading-c">
+        </ion-refresher>
+        <ol class="messages">
+            <!--     ng-bind-html="message.message"-->
+            <li ng-repeat="message in messagesdetails" ng-bind-html="message.message" ng-class="{messagesuser: message.user_id == user_id }">
+                <p>{{message.message}}</p>
+            </li>
+        </ol>
+    </ion-content>
+
+    <ion-footer-bar keyboard-attach class="item-input-inset message-footer" id="bar-footer-message-box">
+        <label class="item-input-wrapper">
+            <textarea value="" ng-model="IM.textMessage" placeholder="Type in your message..." required minlength="1" maxlength="1500" msd-elastic></textarea>
+        </label>
+        <div class="footer-btn-wrap">
+            <button class="button footer-btn button-balanced" ng-click="sendMessage(IM.textMessage)">Send</button>
+        </div>
+    </ion-footer-bar>
+</ion-view>

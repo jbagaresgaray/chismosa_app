@@ -1,64 +1,23 @@
-<ion-view title="Signup">
-  <ion-header-bar class="bar-dark">
-    <div class="buttons">
-      <a class="button button-clear" href="#/login"><i class="icon ion-ios7-arrow-back"></i>Sign up</a>
-    </div>
-    <h1 class="title"></h1>
-  </ion-header-bar>
-  <ion-content>
-    <div class="list">
-
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Name</span>
-        <input type="text" placeholder= "Name" ng-model="register.fullname" required>
-      </label>
-      <div class="row">
-        <div class="col col-25">
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Area Code</span>
-            <input type="text" placeholder="Area Code" ng-model="register.areacode" required>
-          </label>
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-positive">
+        <h1 class="title">Create New Account</h1>
+        <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label">Email</span>
+                <input ng-model="user.email" type="text">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Password</span>
+                <input ng-model="user.password" type="password">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Display Name</span>
+                <input ng-model="user.displayname" type="text">
+            </label>
+            <button class="button button-full button-positive" ng-click="createUser(user)">Create</button>
         </div>
-        <div class="col col-75">
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Mobile Number</span>
-            <input type="text" placeholder="Mobile Number" ng-model="register.mobile_number" required>
-          </label>
-        </div>
-      </div>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Password</span>
-        <input type="password" placeholder="Password" ng-model="register.password" required>
-      </label>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Confirm Password</span>
-        <input type="password" placeholder="Confirm" ng-model="register.confirmpassword" required>
-      </label>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Email</span>
-        <input type="email" placeholder="Email" ng-model="register.email" required>
-      </label>
-      <label class="item">
-        <button class="button button-block button-energized" ng-click="Signup()">Register</button>
-      </label>
-      <label class="item">
-        <span class="input-label">Sign in via:</span>
-        <div class="row">
-          <div class="col">
-            <button class="button button-positive icon ion-social-facebook"></button>
-          </div>
-          <div class="col">
-            <button class="button button-calm icon ion-social-twitter"></button>
-          </div>
-          <div class="col">
-            <button class="button button-assertive icon ion-social-googleplus"></button>
-          </div>
-          <div class="col">
-            <button class="button button-positive icon ion-social-linkedin-outline"></button>
-          </div>
-        </div>
-      </label>
-    </div>
-  </ion-content>
-</ion-view>
-
+    </ion-content>
+</ion-modal-view>

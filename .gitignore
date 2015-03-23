@@ -10,3 +10,4 @@ node_modules/
 /plugins/org.apache.cordova.media-capture/
 /chismosa_app/
 /plugins/com.ionic.keyboard/
+/.brackets.json

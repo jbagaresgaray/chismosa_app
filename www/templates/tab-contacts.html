@@ -1,0 +1,26 @@
+<ion-view title="">
+
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-ios-personadd-outline" ng-click="modal.show()"></button>
+        <button class="button button-icon icon ion-ios-search" ng-click="openSearch()"></button>
+    </ion-nav-buttons>
+
+    <ion-content class="has-header">
+        <ion-refresher on-refresh="doRefreshContacts()" pulling-text="Pull to refresh..." refreshing-text="Refreshing!" refreshing-icon="ion-loading-a">
+        </ion-refresher>
+        <ion-list>
+            <ion-item ng-repeat="contact in contacts" class="item item-avatar item-icon-right" ng-if="contacts.length > 0" ng-click="openProfile(contact.id)">
+                <img class="rounded" ng-src="img/photo.png" />
+                <h3>{{contact.name}}</h3>
+                <p>{{contact.number}}</p>
+                <a class="button button-icon icon ion-chatbox positive" ng-click="composeMessage(contact.id)"></a>
+                <!-- <a class="button button-icon icon ion-chatbox positive" ng-href="#/tab/chatdetail/{{contact.id}}"></a> -->
+            </ion-item>
+        </ion-list>
+    </ion-content>
+
+</ion-view>

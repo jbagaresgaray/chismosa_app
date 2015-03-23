@@ -1,0 +1,14 @@
+<ion-view view-title="Rooms">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-list ng-show="rooms">
+            <ion-item class="item-icon-left" ng-repeat="room in rooms" type="item-text-wrap" ng-click="openChatRoom(room.id)">
+                <!-- <i class="icon {{room.icon}}"></i> -->
+                <span class="badge icon-badge" ng-model="room.firstinitial" style="color:white !important;" ng-class="{'badge-balanced' : room.firstinitial == 'A', 'badge-energized' : room.firstinitial == 'B', 'badge-assertive' : room.firstinitial == 'C'}" </span>
+                <h2>{{room.name}}</h2>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

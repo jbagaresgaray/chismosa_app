@@ -1,27 +1,22 @@
-<?xml version='1.0' encoding='utf-8' ?>
-<widget id="com.ionicframework.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Chismosa</name>
-    <description>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widget id="com.ionicframework.chismosa" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Chismosa</name>
+  <description>
         Download the app on your Android device so you can take Chikka with you wherever you go. Simply sign up for free using your mobile number to start texting for free. You can also sign up using Facebook, Twitter, Google Plus or LinkedIn so you don't have to worry about forgetting your password again. And when you're not on mobile, Chikka is also always accessible on the web. This version gives you more free texts and other cool features to help you conveniently connect with your friends wherever you may be. Happy texting!
     </description>
-    <author email="info@peopleindexsolutions.com" href="http://www.peopleindexsolutions.com/">
+  <author email="info@peopleindexsolutions.com" href="http://www.peopleindexsolutions.com/">
         People Index Solutions Team
     </author>
-    <content src="index.html" />
-    <access origin="*" />
-    <preference name="webviewbounce" value="false" />
-    <preference name="UIWebViewBounce" value="false" />
-    <preference name="DisallowOverscroll" value="true" />
-
-    <!-- Don't store local date in an iCloud backup. Turn this to "cloud" to enable storage
-         to be sent to iCloud. Note: enabling this could result in Apple rejecting your app.
-    -->
-    <preference name="BackupWebStorage" value="none" />
-
-    <feature name="StatusBar">
-        <param name="ios-package" value="CDVStatusBar" onload="true" />
-    </feature>
-    <feature name="Keyboard">
-        <param name="ios-package" value="IonicKeyboard" onload="true" />
-    </feature>
+  <content src="index.html"/>
+  <access origin="*"/>
+  <preference name="webviewbounce" value="false"/>
+  <preference name="UIWebViewBounce" value="false"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="BackupWebStorage" value="none"/>
+  <feature name="StatusBar">
+    <param name="ios-package" value="CDVStatusBar" onload="true"/>
+  </feature>
+  <feature name="Keyboard">
+    <param name="ios-package" value="IonicKeyboard" onload="true"/>
+  </feature>
 </widget>
